@@ -1,0 +1,5 @@
+# proj configuration (skeleton)
+scan_directories:
+  - /Users/kylehurd/Workplace
+
+editor: vscode
