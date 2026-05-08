@@ -34,6 +34,7 @@ endif()
 
 
 add_executable(proj
+    src/app.cpp
     src/utility.cpp
     src/cli.cpp
     src/config_settings.cpp
