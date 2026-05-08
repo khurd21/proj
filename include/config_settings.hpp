@@ -17,7 +17,8 @@ struct ConfigSettings {
   std::vector<std::filesystem::path> scan_directories;
   Editors editor{Editors::NONE};
 
-  void load_from_settings(const std::filesystem::path &config_file);
+  void load_from_settings(const std::filesystem::path &config_file, bool strict = true);
+  void save_to_settings(const std::filesystem::path &config_file) const;
 };
 
 } // namespace proj

@@ -14,6 +14,16 @@ enum class Editors {
   NONE,
 };
 
+inline std::string to_string(const Editors editor) {
+  switch (editor) {
+  case Editors::VSCODE:
+    return "vscode";
+  case Editors::NONE:
+  default:
+    return "none";
+  }
+}
+
 inline Editors editors_from_string(std::string value) {
   std::transform(value.begin(), value.end(), value.begin(), [](auto c) { return static_cast<char>(std::tolower(c)); });
   if (value == "vscode") {
@@ -25,17 +35,7 @@ inline Editors editors_from_string(std::string value) {
 } // namespace proj
 
 inline std::ostream &operator<<(std::ostream &os, const proj::Editors &editor) {
-  switch (editor) {
-  case proj::Editors::VSCODE:
-    os << "vscode";
-    break;
-  case proj::Editors::NONE:
-    os << "none";
-    break;
-  default:
-    os << "unknown";
-    break;
-  }
+  os << proj::to_string(editor);
   return os;
 }
 

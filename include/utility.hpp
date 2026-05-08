@@ -15,6 +15,8 @@ std::optional<std::filesystem::path> find_project(const std::vector<std::filesys
 
 std::vector<std::string> list_projects(const std::vector<std::filesystem::path> &scan_directories);
 
+bool is_editor_available(Editors editor);
+
 int open_in_editor(Editors editor, const std::filesystem::path &repo_path);
 
 } // namespace proj

@@ -61,6 +61,17 @@ std::vector<std::string> list_projects(const std::vector<std::filesystem::path> 
   return {project_names.begin(), project_names.end()};
 }
 
+bool is_editor_available(Editors editor) {
+  switch (editor) {
+  case Editors::VSCODE:
+    return std::system("command -v code >/dev/null 2>&1") == 0 ||
+           std::system("open -Ra \"Visual Studio Code\" >/dev/null 2>&1") == 0;
+  case Editors::NONE:
+  default:
+    return false;
+  }
+}
+
 int open_in_editor(Editors editor, const std::filesystem::path &repo_path) {
 
   switch (editor) {
