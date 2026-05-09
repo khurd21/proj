@@ -3,9 +3,20 @@
 
 #include "cli_args.hpp"
 
+#include <stdexcept>
 #include <string>
 
 namespace proj {
+
+class CLIExit : public std::runtime_error {
+public:
+  CLIExit(int exit_code, const std::string &message);
+
+  int exit_code() const noexcept;
+
+private:
+  int m_exit_code{};
+};
 
 class CLI {
 public:

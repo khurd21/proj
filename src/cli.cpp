@@ -3,6 +3,7 @@
 #include <CLI/CLI.hpp>
 
 #include <filesystem>
+#include <sstream>
 #include <stdexcept>
 
 namespace {
@@ -12,6 +13,10 @@ using App = CLI::App;
 }
 
 namespace proj {
+
+CLIExit::CLIExit(int exit_code, const std::string &message) : std::runtime_error{message}, m_exit_code{exit_code} {}
+
+int CLIExit::exit_code() const noexcept { return m_exit_code; }
 
 CLI::CLI(int argc, char **argv) {
   App app{"Open a configured git project in your editor."};
@@ -32,7 +37,15 @@ CLI::CLI(int argc, char **argv) {
   app.add_flag("--clear-paths", m_args.clear_paths, "Clear all scan directory paths from config/proj.yaml.");
   app.add_option("--set-editor", set_editor, "Set editor in config/proj.yaml (currently: vscode).");
 
-  app.parse(argc, argv);
+  try {
+    app.parse(argc, argv);
+  } catch (const ::CLI::Error &error) {
+    std::ostringstream out;
+    std::ostringstream err;
+    const auto exit_code{app.exit(error, out, err)};
+    const auto rendered{exit_code == 0 ? out.str() : err.str()};
+    throw CLIExit{exit_code, rendered};
+  }
 
   if (add_path != std::filesystem::path{}) {
     m_args.add_path = add_path;

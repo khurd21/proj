@@ -31,6 +31,14 @@ editor: vscode
 
 ## CLI Reference
 
+### Show help
+
+```bash
+proj --help
+```
+
+Prints command usage, options, and examples.
+
 ### Open a project
 
 ```bash
