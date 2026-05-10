@@ -84,6 +84,15 @@ Validates that the editor is available on your system before saving.
 
 - `vscode`
 
+## Troubleshooting zsh completion
+
+If completion does not load in a shell session, initialize zsh completion and retry:
+
+```bash
+autoload -Uz compinit
+compinit -i
+```
+
 ## License
 
 MIT
